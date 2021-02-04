@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
 
     Intake intake = new Intake(0, 2);
     Hopper hopper = new Hopper(1, 2);
-    Spinner spinner = new Spinner(3);
+    // Spinner spinner = new Spinner(3);
     Lift lift = new Lift(4, 5, 0, 1);
     Drivetrain drivetrain = new Drivetrain(6, 7, 8, 9);
     Shooter shooter = new Shooter(44, 55, 6e-5, 0, 0, 0, 0.000015, 1, -1, 6000);
@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
 
         intake.setInversionStatus(true);
         hopper.setInversionStatus(false, true);
-        spinner.setInversionStatus(false);
+        // spinner.setInversionStatus(false);
         lift.setInversionStatus(true, false);
         drivetrain.setInversionStatus(false, false, true, true);
 
@@ -122,23 +122,23 @@ public class Robot extends TimedRobot {
 
         }
 
-        if (rightJoystick.getRawButton(2)) {
+        // if (rightJoystick.getRawButton(2)) {
 
-            spinner.freeSpin(0.3);
+        //     spinner.freeSpin(0.3);
 
-        }
+        // }
 
-        if (rightJoystick.getRawButton(3)) {
+        // if (rightJoystick.getRawButton(3)) {
         
-            spinner.beginRotationControl(true, false, leftJoystick);
+        //     spinner.beginRotationControl(true, false, leftJoystick);
 
-        }
+        // }
 
-        if (rightJoystick.getRawButton(4)) {
+        // if (rightJoystick.getRawButton(4)) {
 
-            spinner.beginPositionControl(true, false, leftJoystick);
+        //     spinner.beginPositionControl(true, false, leftJoystick);
 
-        }
+        // }
 
         if (thirdJoystick.getRawAxis(1) > 0.9) {
 
@@ -270,7 +270,8 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
 
-        stopMechanisms(intake, hopper, spinner, lift, drivetrain, shooter);
+        // stopMechanisms(intake, hopper, spinner, lift, drivetrain, shooter);
+        stopMechanisms(intake, hopper, lift, drivetrain, shooter);
 
     }
 
