@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     Intake intake = new Intake(0, 2);
     Hopper hopper = new Hopper(1, 2);
     // Spinner spinner = new Spinner(3);
-    Lift lift = new Lift(4, 5, 0, 1);
+    // Lift lift = new Lift(4, 5, 0, 1);
     Drivetrain drivetrain = new Drivetrain(6, 7, 8, 9);
     Shooter shooter = new Shooter(44, 55, 6e-5, 0, 0, 0, 0.000015, 1, -1, 6000);
 
@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
         intake.setInversionStatus(true);
         hopper.setInversionStatus(false, true);
         // spinner.setInversionStatus(false);
-        lift.setInversionStatus(true, false);
+        // lift.setInversionStatus(true, false);
         drivetrain.setInversionStatus(false, false, true, true);
 
     }
@@ -186,29 +186,29 @@ public class Robot extends TimedRobot {
 
         }
 
-        if (thirdJoystick.getPOV() == 270) {
+        // if (thirdJoystick.getPOV() == 270) {
 
-            lift.freeRatchet(thirdJoystick);
+        //     lift.freeRatchet(thirdJoystick);
         
-        }
+        // }
 
-        if (thirdJoystick.getPOV() == 90) {
+        // if (thirdJoystick.getPOV() == 90) {
 
-            lift.lockRatchet(thirdJoystick);
+        //     lift.lockRatchet(thirdJoystick);
         
-        }
+        // }
 
-        if (thirdJoystick.getPOV() == 0) {
+        // if (thirdJoystick.getPOV() == 0) {
 
-            lift.moveUp(0.2);
+        //     lift.moveUp(0.2);
 
-        }
+        // }
 
-        if (thirdJoystick.getPOV() == 180) {
+        // if (thirdJoystick.getPOV() == 180) {
 
-            lift.moveDown(0.2);
+        //     lift.moveDown(0.2);
 
-        }
+        // }
 
         if (leftJoystick.getRawButton(2)) {
             
@@ -271,7 +271,7 @@ public class Robot extends TimedRobot {
     public void disabledInit() {
 
         // stopMechanisms(intake, hopper, spinner, lift, drivetrain, shooter);
-        stopMechanisms(intake, hopper, lift, drivetrain, shooter);
+        stopMechanisms(intake, hopper, drivetrain, shooter);
 
     }
 
