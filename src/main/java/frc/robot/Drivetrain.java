@@ -324,5 +324,47 @@ public class Drivetrain extends Mechanism {
         }
 
     }
+
+    /**
+     * Aims the robot at the target.
+     * @param driverStationDisplay A boolean representing whether or not to display certain PID and Limelight values on Driver Station.
+     * @param smartDashboardDisplay A boolean representing whether or not to display certain PID and Limelight values on SmartDashboard.
+     * @param joystick The joystick operating the shooter whose second button can be used to break loops.
+     * @param limelight The limelight attached to the drivetrain.
+     */
+    public void prepareToShoot(boolean driverStationDisplay, boolean smartDashboardDisplay, Joystick joystick, Limelight limelight) {
+
+        // Not sure if this line is strictly necessary.
+        limelight.updateLimelightVariables(driverStationDisplay, smartDashboardDisplay);
+    
+        // Might want to change this to an if statement.
+        while (Math.abs(limelight.horizontalOffset) > 0.1) {
+    
+            limelight.updateLimelightVariables(driverStationDisplay, smartDashboardDisplay);
+        
+            if (limelight.horizontalOffset > 0) {
+
+                turnAutonomously("LEFT", 0.1);
+
+            }
+            
+            if (limelight.horizontalOffset < 0) {
+
+                turnAutonomously("RIGHT", 0.1);
+
+            }
+        
+            if (joystick.getRawButton(2)) {
+
+                stop();
+                break;
+
+            }
+    
+        }
+    
+        stop();
+    
+    }
     
 }

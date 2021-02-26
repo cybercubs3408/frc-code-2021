@@ -14,21 +14,17 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Shooter extends Mechanism {
 
-    final double limelightHeight, targetHeight, limelightAngle;
-    double horizontalOffset, verticalOffset, targetArea, targetValidity;
+    // final double limelightHeight, targetHeight, limelightAngle;
+    // double horizontalOffset, verticalOffset, targetArea, targetValidity;
 
-    NetworkTable limelightTable;
-    NetworkTableEntry horizontalOffsetEntry, verticalOffsetEntry, targetAreaEntry, targetValidityEntry;
+    // NetworkTable limelightTable;
+    // NetworkTableEntry horizontalOffsetEntry, verticalOffsetEntry, targetAreaEntry, targetValidityEntry;
 
     CANSparkMax left, right;
     CANEncoder leftEncoder, rightEncoder;
@@ -51,15 +47,15 @@ public class Shooter extends Mechanism {
      */
     public Shooter(int leftID, int rightID, double P, double I, double D, double Iz, double FF, double maxOutput, double minOutput, double maxRPM) {
 
-        limelightHeight = 33.5;
-        targetHeight = 97.0;
-		limelightAngle = 3.0;
+        // limelightHeight = 33.5;
+        // targetHeight = 97.0;
+		// limelightAngle = 3.0;
         
-        limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
-        horizontalOffsetEntry = limelightTable.getEntry("tx");
-        verticalOffsetEntry = limelightTable.getEntry("ty");
-        targetAreaEntry = limelightTable.getEntry("ta");
-        targetValidityEntry = limelightTable.getEntry("tv");
+        // limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
+        // horizontalOffsetEntry = limelightTable.getEntry("tx");
+        // verticalOffsetEntry = limelightTable.getEntry("ty");
+        // targetAreaEntry = limelightTable.getEntry("ta");
+        // targetValidityEntry = limelightTable.getEntry("tv");
 
         left = new CANSparkMax(leftID, MotorType.kBrushless);
         right = new CANSparkMax(rightID, MotorType.kBrushless);
@@ -87,7 +83,6 @@ public class Shooter extends Mechanism {
     
     /**
      * Updates the PID coefficients by reading them off of SmartDashboard.
-     * @param power The power to set the PID controller to.
      * @param smartDashboardDisplay A boolean representing whether or not to display certain PID values on Driver Station.
      */
     public void updatePIDCoefficients(boolean smartDashboardDisplay) {
@@ -162,88 +157,28 @@ public class Shooter extends Mechanism {
     }
 
     /**
-     * Updates the Limelight variables and displays them on Driver Station and/or SmartDashboard if necessary.
-     * @param driverStationDisplay A boolean representing whether or not to display certain PID values on Driver Station.
-     * @param smartDashboardDisplay A boolean representing whether or not to display certain PID values on SmartDashboard.
+     * Spins the shooter using PID control.
+     * @param smartDashboardDisplay A boolean representing whether or not to display certain PID values on Driver Station.
+     * @param joystick The joystick operating the shooter whose second button can be used to break loops.
      */
-    public void updateLimelightVariables(boolean driverStationDisplay, boolean smartDashboardDisplay) {
+    public void shoot(boolean smartDashboardDisplay, Joystick joystick) {
 
-        horizontalOffset = horizontalOffsetEntry.getDouble(0.0);
-        verticalOffset = verticalOffsetEntry.getDouble(0.0);
-        targetArea = targetAreaEntry.getDouble(0.0);
-        targetValidity = targetValidityEntry.getDouble(0.0);    
+        updatePIDCoefficients(smartDashboardDisplay);
 
-        if (driverStationDisplay) {
+        SmartDashboard.putNumber("RPM", leftEncoder.getVelocity());
 
-            DriverStation.reportWarning(Double.toString(targetValidity), false);
+        // Not sure if needed.
+        if (joystick.getRawButton(2)) {
 
-        }
-
-        if (smartDashboardDisplay) {
-
-            SmartDashboard.putNumber("Horizontal Offset", horizontalOffset);
-            SmartDashboard.putNumber("Vertical Offset", verticalOffset);
-            SmartDashboard.putNumber("Target Area", targetArea);
-            SmartDashboard.putNumber("Target Validity", targetValidity);
+            left.set(0);
 
         }
 
     }
 
     /**
-     * Aims the robot at the target and powers the shooter.
-     * @param power The unsigned power to apply to the motor controllers to spin the flywheel.
-     * @param driverStationDisplay A boolean representing whether or not to display certain PID and Limelight values on Driver Station.
-     * @param smartDashboardDisplay A boolean representing whether or not to display certain PID and Limelight values on SmartDashboard.
-     * @param drivetrain The drivetrain attached to the shooter.
-     * @param joystick The joystick operating the shooter whose second button can be used to break loops.
+     * Stops the shooter.
      */
-    public void prepareToShoot(boolean driverStationDisplay, boolean smartDashboardDisplay, Drivetrain drivetrain, Joystick joystick) {
-
-        updatePIDCoefficients(smartDashboardDisplay);
-
-        updateLimelightVariables(driverStationDisplay, smartDashboardDisplay);
-            
-        SmartDashboard.putNumber("RPM", leftEncoder.getVelocity());
-
-    
-        if (joystick.getRawButton(2)) {
-
-            left.set(0);
-
-        }
-    
-        while (Math.abs(horizontalOffset) > 0.1) {
-
-            updatePIDCoefficients(smartDashboardDisplay);
-    
-            updateLimelightVariables(driverStationDisplay, smartDashboardDisplay);
-        
-            if (horizontalOffset > 0) {
-
-                drivetrain.turnAutonomously("LEFT", 0.1);
-
-            }
-            
-            if (horizontalOffset < 0) {
-
-                drivetrain.turnAutonomously("RIGHT", 0.1);
-
-            }
-        
-            if (joystick.getRawButton(2)) {
-
-                drivetrain.stop();
-                break;
-
-            }
-    
-        }
-    
-        drivetrain.driveAutonomously(0);
-    
-    }
-
     public void stop() {
 
         left.set(0);

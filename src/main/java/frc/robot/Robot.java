@@ -15,8 +15,8 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+// import com.ctre.phoenix.motorcontrol.ControlMode;
+// import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
     // Lift lift = new Lift(4, 5, 0, 1);
     Drivetrain drivetrain = new Drivetrain(6, 7, 8, 9);
     Shooter shooter = new Shooter(44, 55, 6e-5, 0, 0, 0, 0.000015, 1, -1, 6000);
+    Limelight limelight = new Limelight();
 
     @Override
     public void robotInit() {
@@ -105,14 +106,14 @@ public class Robot extends TimedRobot {
 
         if (leftJoystick.getRawButton(1)) {
 
-            shooter.prepareToShoot(false, true, drivetrain, leftJoystick);
+            drivetrain.prepareToShoot(false, true, leftJoystick, limelight);
 
         }
 
         // ??????????????????????????????
         if (leftJoystick.getRawButtonPressed(1)) {
 
-            shooter.prepareToShoot(false, true, drivetrain, leftJoystick);
+            drivetrain.prepareToShoot(false, true, leftJoystick, limelight);
 
         }
 
@@ -139,6 +140,19 @@ public class Robot extends TimedRobot {
         //     spinner.beginPositionControl(true, false, leftJoystick);
 
         // }
+
+        // I have no idea which button works best for shooting. Fix later.
+        if (rightJoystick.getRawButton(3)) {
+        
+            shooter.shoot(true, rightJoystick);
+
+        }
+
+        if (rightJoystick.getRawButton(4)) {
+
+            shooter.shoot(true, rightJoystick);
+
+        }
 
         if (thirdJoystick.getRawAxis(1) > 0.9) {
 
