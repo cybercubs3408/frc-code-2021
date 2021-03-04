@@ -230,47 +230,47 @@ public class Robot extends TimedRobot {
 
         }
 
-        if (thirdJoystick.getRawButton(3)) {
+        // if (thirdJoystick.getRawButton(3)) {
 
-            try {
+        //     try {
 
-                drivetrain.startRecording(leftJoystick, rightJoystick, "C:\\Users\\FRC3408_User\\Downloads\\Class-Based Robot-20210130T183128Z-001\\Class-Based Robot-Imported\\src\\main\\java\\frc\\robot\\data.csv");
+        //         drivetrain.startRecording(leftJoystick, rightJoystick, "C:\\Users\\FRC3408_User\\Downloads\\Class-Based Robot-20210130T183128Z-001\\Class-Based Robot-Imported\\src\\main\\java\\frc\\robot\\data.csv");
 
-            } catch (Exception exception) {
+        //     } catch (Exception exception) {
 
-                exception.printStackTrace();
+        //         exception.printStackTrace();
 
-            }
+        //     }
 
-        }
+        // }
 
-        if (thirdJoystick.getRawButton(4)) {
+        // if (thirdJoystick.getRawButton(4)) {
 
-            try {
+        //     try {
 
-                drivetrain.endRecording();
+        //         drivetrain.endRecording();
 
-            } catch (Exception exception) {
+        //     } catch (Exception exception) {
 
-                exception.printStackTrace();
+        //         exception.printStackTrace();
 
-            }
+        //     }
 
-        }
+        // }
 
-        if (thirdJoystick.getRawButton(2)) {
+        // if (thirdJoystick.getRawButton(2)) {
 
-            try {
+        //     try {
 
-                drivetrain.playRecording("C:\\Users\\FRC3408_User\\Downloads\\Class-Based Robot-20210130T183128Z-001\\Class-Based Robot-Imported\\src\\main\\java\\frc\\robot\\data.csv");
+        //         drivetrain.playRecording("C:\\Users\\FRC3408_User\\Downloads\\Class-Based Robot-20210130T183128Z-001\\Class-Based Robot-Imported\\src\\main\\java\\frc\\robot\\data.csv");
 
-            } catch (Exception exception) {
+        //     } catch (Exception exception) {
 
-                exception.printStackTrace();
+        //         exception.printStackTrace();
 
-            }
+        //     }
 
-        }
+        // }
 
         // stopMechanisms(intake, hopper, spinner, lift);
 

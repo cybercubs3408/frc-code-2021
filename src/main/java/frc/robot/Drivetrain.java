@@ -13,9 +13,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import java.io.File;
+// import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
+// import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -197,133 +197,133 @@ public class Drivetrain extends Mechanism {
 
     }
 
-    /**
-     * Starts recording values of the vertical axes of two joysticks, along with timestamps, in a csv file located at the specified file path.
-     * @param leftJoystick The joystick controlling the left side of the drivetrain.
-     * @param rightJoystick The joystick controlling the right side of the drivetrain.
-     * @param filePath The String representing the location of the csv file to store the recorded values in.
-     * @throws IOException
-     */
-    public void startRecording(Joystick leftJoystick, Joystick rightJoystick, String filePath) throws IOException {
+    // /**
+    //  * Starts recording values of the vertical axes of two joysticks, along with timestamps, in a csv file located at the specified file path.
+    //  * @param leftJoystick The joystick controlling the left side of the drivetrain.
+    //  * @param rightJoystick The joystick controlling the right side of the drivetrain.
+    //  * @param filePath The String representing the location of the csv file to store the recorded values in.
+    //  * @throws IOException
+    //  */
+    // public void startRecording(Joystick leftJoystick, Joystick rightJoystick, String filePath) throws IOException {
 
-        recordingStorage = filePath;
+    //     recordingStorage = filePath;
 
-        if (!recordingHasStarted) {
+    //     if (!recordingHasStarted) {
 
-            try {
+    //         try {
 
-                writer = new FileWriter(recordingStorage);
+    //             writer = new FileWriter(recordingStorage);
     
-            } catch (Exception exception) {
+    //         } catch (Exception exception) {
     
-                exception.printStackTrace();
+    //             exception.printStackTrace();
     
-            }
+    //         }
 
-            recordingStartTime = System.currentTimeMillis();
-            recordingHasStarted = true;
+    //         recordingStartTime = System.currentTimeMillis();
+    //         recordingHasStarted = true;
 
-        }
+    //     }
 
-        if (writer != null) {
+    //     if (writer != null) {
 
-            writer.append("" + (System.currentTimeMillis() - recordingStartTime));
-            writer.append("," + leftJoystick.getRawAxis(1));
-            writer.append("," + rightJoystick.getRawAxis(1) + "\n");
+    //         writer.append("" + (System.currentTimeMillis() - recordingStartTime));
+    //         writer.append("," + leftJoystick.getRawAxis(1));
+    //         writer.append("," + rightJoystick.getRawAxis(1) + "\n");
 
-        }
+    //     }
 
-    }
+    // }
 
-    /**
-     * Ends the latest recording.
-     * @throws IOException
-     */
-    public void endRecording() throws IOException {
+    // /**
+    //  * Ends the latest recording.
+    //  * @throws IOException
+    //  */
+    // public void endRecording() throws IOException {
 
-        if (writer != null) {
+    //     if (writer != null) {
 
-            writer.flush();
-            writer.close();
+    //         writer.flush();
+    //         writer.close();
 
-            recordingHasStarted = false;
+    //         recordingHasStarted = false;
 
-            driveAutonomously(0);
+    //         driveAutonomously(0);
 
-        }
+    //     }
 
-    }
+    // }
 
-    /**
-     * Starts playing back the recording at the specified file path.
-     * @param filePath The String representing the location of the csv file to play back.
-     * @throws IOException
-     */
-    public void playRecording(String filePath) throws IOException {
+    // /**
+    //  * Starts playing back the recording at the specified file path.
+    //  * @param filePath The String representing the location of the csv file to play back.
+    //  * @throws IOException
+    //  */
+    // public void playRecording(String filePath) throws IOException {
 
-        playbackStorage = filePath;
+    //     playbackStorage = filePath;
 
-        double leftStick, rightStick;
-        double deltaT = 0;
+    //     double leftStick, rightStick;
+    //     double deltaT = 0;
 
-        if (!playbackHasStarted) {
+    //     if (!playbackHasStarted) {
 
-            try {
+    //         try {
 
-                scanner = new Scanner(new File(playbackStorage));
-                scanner.useDelimiter(",|\\n");
+    //             scanner = new Scanner(new File(playbackStorage));
+    //             scanner.useDelimiter(",|\\n");
     
-            } catch (Exception exception) {
+    //         } catch (Exception exception) {
     
-                exception.printStackTrace();
+    //             exception.printStackTrace();
     
-            }
+    //         }
 
-            playbackStartTime = System.currentTimeMillis();
-            playbackHasStarted = true;
+    //         playbackStartTime = System.currentTimeMillis();
+    //         playbackHasStarted = true;
 
-        }
+    //     }
         
-        if (scanner != null && scanner.hasNext()) {
+    //     if (scanner != null && scanner.hasNext()) {
 
-            if (onTime) {
+    //         if (onTime) {
 
-                nextDouble = scanner.nextDouble();
+    //             nextDouble = scanner.nextDouble();
 
-            }
+    //         }
 
-            deltaT = nextDouble - (System.currentTimeMillis() - playbackStartTime);
+    //         deltaT = nextDouble - (System.currentTimeMillis() - playbackStartTime);
 
-            if (deltaT <= 0) {
+    //         if (deltaT <= 0) {
 
-                leftStick = scanner.nextDouble();
-                rightStick = scanner.nextDouble();
+    //             leftStick = scanner.nextDouble();
+    //             rightStick = scanner.nextDouble();
 
-                frontLeft.set(Math.pow(leftStick, 3));
-                backLeft.set(Math.pow(leftStick, 3));
-                frontRight.set(Math.pow(rightStick, 3));
-                backRight.set(Math.pow(rightStick, 3));
+    //             frontLeft.set(Math.pow(leftStick, 3));
+    //             backLeft.set(Math.pow(leftStick, 3));
+    //             frontRight.set(Math.pow(rightStick, 3));
+    //             backRight.set(Math.pow(rightStick, 3));
 
-                onTime = true;
+    //             onTime = true;
 
-            } else {
+    //         } else {
 
-                onTime = false;
+    //             onTime = false;
 
-            }
+    //         }
 
-        } else {
+    //     } else {
 
-            scanner.close();
-            scanner = null;
+    //         scanner.close();
+    //         scanner = null;
 
-            playbackHasStarted = false;
+    //         playbackHasStarted = false;
 
-            driveAutonomously(0);
+    //         driveAutonomously(0);
 
-        }
+    //     }
 
-    }
+    // }
 
     /**
      * Aims the robot at the target.
