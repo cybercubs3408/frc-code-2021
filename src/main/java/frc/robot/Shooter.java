@@ -213,7 +213,7 @@ public class Shooter extends Mechanism {
 
         }
     
-        while (Math.abs(horizontalOffset) > 0.1) {
+        if (Math.abs(horizontalOffset) > 0.1) {
 
             updatePIDCoefficients(smartDashboardDisplay);
     
@@ -234,7 +234,7 @@ public class Shooter extends Mechanism {
             if (joystick.getRawButton(2)) {
 
                 drivetrain.stop();
-                break;
+            //     break;
 
             }
     
