@@ -1,3 +1,10 @@
+/*
+
+    Notes:
+    - To Do: Add method to calculate RPM based on limelight angle.
+
+*/
+
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -5,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class Limelight extends Mechanism {
 
@@ -14,11 +22,17 @@ public class Limelight extends Mechanism {
     NetworkTable limelightTable;
     NetworkTableEntry horizontalOffsetEntry, verticalOffsetEntry, targetAreaEntry, targetValidityEntry;
 
-    public Limelight() {
+    /**
+     * Constructs a Limelight object.
+     * @param limelightHeight The vertical distance between the Limelight and the ground in inches.
+     * @param targetHeight The vertical distance between the center of the target and the ground in inches.
+     * @param limelightAngle The angle between the Limelight and the ground in degrees.
+     */
+    public Limelight(double limelightHeight, double targetHeight, double limelightAngle) {
 
-        limelightHeight = 33.5;
-        targetHeight = 97.0;
-		limelightAngle = 3.0;
+        this.limelightHeight = limelightHeight;
+        this.targetHeight = targetHeight;
+		this.limelightAngle = limelightAngle;
         
         limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
         horizontalOffsetEntry = limelightTable.getEntry("tx");

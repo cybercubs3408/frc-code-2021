@@ -1,8 +1,9 @@
 /*
 
     Notes:
-    - The updatePIDCoefficients method call is currently commented out.
-        - Once uncommented, it probably will not work.
+    - To Do: Test whether the shooting requires only a single press or a constant press.
+    - To Do: Allow target RPM to be modified from the Smart Dashboard.
+    - To Do: Calculate target RPM from Limelight.
 
 */
 
@@ -18,12 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Shooter extends Mechanism {
-
-    // final double limelightHeight, targetHeight, limelightAngle;
-    // double horizontalOffset, verticalOffset, targetArea, targetValidity;
-
-    // NetworkTable limelightTable;
-    // NetworkTableEntry horizontalOffsetEntry, verticalOffsetEntry, targetAreaEntry, targetValidityEntry;
 
     CANSparkMax left, right;
     CANEncoder leftEncoder, rightEncoder;
@@ -45,16 +40,6 @@ public class Shooter extends Mechanism {
      * @param maxRPM The maximum RPM of the flywheel.
      */
     public Shooter(int leftID, int rightID, double P, double I, double D, double Iz, double FF, double maxOutput, double minOutput, double maxRPM) {
-
-        // limelightHeight = 33.5;
-        // targetHeight = 97.0;
-		// limelightAngle = 3.0;
-        
-        // limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
-        // horizontalOffsetEntry = limelightTable.getEntry("tx");
-        // verticalOffsetEntry = limelightTable.getEntry("ty");
-        // targetAreaEntry = limelightTable.getEntry("ta");
-        // targetValidityEntry = limelightTable.getEntry("tv");
 
         left = new CANSparkMax(leftID, MotorType.kBrushless);
         right = new CANSparkMax(rightID, MotorType.kBrushless);
@@ -145,11 +130,11 @@ public class Shooter extends Mechanism {
             SmartDashboard.putNumber("I Gain", kI);
             SmartDashboard.putNumber("D Gain", kD);
             SmartDashboard.putNumber("I Zone", kIz);
-            SmartDashboard.putNumber("Feed Forward Gain", kFF);
+            SmartDashboard.putNumber("Feed Forward", kFF);
             SmartDashboard.putNumber("Max Output", kMaxOutput);
             SmartDashboard.putNumber("Min Output", kMinOutput);
             SmartDashboard.putNumber("Max RPM", kMaxRPM);
-            SmartDashboard.putNumber("ProcessVariable", leftEncoder.getVelocity());
+            SmartDashboard.putNumber("RPM", leftEncoder.getVelocity());
 
         }
 
@@ -158,7 +143,6 @@ public class Shooter extends Mechanism {
     /**
      * Spins the shooter using PID control.
      * @param smartDashboardDisplay A boolean representing whether or not to display certain PID values on Driver Station.
-     * @param joystick The joystick operating the shooter whose second button can be used to break loops.
      */
     public void shoot(boolean smartDashboardDisplay) {
 
