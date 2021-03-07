@@ -142,15 +142,11 @@ public class Robot extends TimedRobot {
         // }
 
         // I have no idea which button works best for shooting. Fix later.
-        if (rightJoystick.getRawButton(3)) {
-        
-            shooter.shoot(true, rightJoystick);
 
-        }
 
-        if (rightJoystick.getRawButton(4)) {
+        if (rightJoystick.getRawButton(2)) {
 
-            shooter.shoot(true, rightJoystick);
+            shooter.shoot(true);
 
         }
 

@@ -14,7 +14,6 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ControlType;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -161,18 +160,11 @@ public class Shooter extends Mechanism {
      * @param smartDashboardDisplay A boolean representing whether or not to display certain PID values on Driver Station.
      * @param joystick The joystick operating the shooter whose second button can be used to break loops.
      */
-    public void shoot(boolean smartDashboardDisplay, Joystick joystick) {
+    public void shoot(boolean smartDashboardDisplay) {
 
         updatePIDCoefficients(smartDashboardDisplay);
 
         SmartDashboard.putNumber("RPM", leftEncoder.getVelocity());
-
-        // Not sure if needed.
-        if (joystick.getRawButton(2)) {
-
-            left.set(0);
-
-        }
 
     }
 
