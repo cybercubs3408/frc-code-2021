@@ -337,7 +337,7 @@ public class Drivetrain extends Mechanism {
         // Not sure if this line is strictly necessary.
         limelight.updateLimelightVariables(driverStationDisplay, smartDashboardDisplay);
     
-        // Might want to change this to an if statement.
+        // Might want to change this to an if statement and remove the joystick param.
         while (Math.abs(limelight.horizontalOffset) > 0.1) {
     
             limelight.updateLimelightVariables(driverStationDisplay, smartDashboardDisplay);
