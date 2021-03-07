@@ -78,6 +78,7 @@ public class Shooter extends Mechanism {
         double ff = SmartDashboard.getNumber("Feed Forward", 0);
         double max = SmartDashboard.getNumber("Max Output", 0);
         double min = SmartDashboard.getNumber("Min Output", 0);
+        double target = SmartDashboard.getNumber("Max RPM", 0);
     
         if (p != kP) {
 
@@ -121,8 +122,15 @@ public class Shooter extends Mechanism {
             kMaxOutput = max;
 
         }
+
+        if (target != kMaxRPM) {
+
+            shooterPID.setReference(target, ControlType.kVelocity);
+            kMaxRPM = target;
+
+        }
     
-        shooterPID.setReference(5000, ControlType.kVelocity);
+        // shooterPID.setReference(5000, ControlType.kVelocity);
 
         if (smartDashboardDisplay) {
             
