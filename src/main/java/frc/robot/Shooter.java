@@ -2,7 +2,7 @@
 
     Notes:
     - To Do: Test whether the shooting requires only a single press or a constant press.
-    - To Do: Allow target RPM to be modified from the Smart Dashboard.
+    - To Do: Allow target RPM to be modified from the Smart Dashboard.--> potentially done
     - To Do: Calculate target RPM from Limelight.
 
 */
@@ -76,8 +76,8 @@ public class Shooter extends Mechanism {
         double d = SmartDashboard.getNumber("D Gain", 0);
         double iz = SmartDashboard.getNumber("I Zone", 0);
         double ff = SmartDashboard.getNumber("Feed Forward", 0);
-        double max = SmartDashboard.getNumber("Max Output", 0);
-        double min = SmartDashboard.getNumber("Min Output", 0);
+        double max = SmartDashboard.getNumber("Max Output", 1);
+        double min = SmartDashboard.getNumber("Min Output", -1);
         double target = SmartDashboard.getNumber("Max RPM", 0);
     
         if (p != kP) {
