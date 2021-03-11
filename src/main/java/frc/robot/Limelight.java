@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Limelight extends Mechanism {
 
     final double limelightHeight, targetHeight, limelightAngle;
-    double horizontalOffset, verticalOffset, targetArea, targetValidity;
+    double horizontalOffset, verticalOffset, targetArea, targetValidity, targetDistance;
 
     NetworkTable limelightTable;
     NetworkTableEntry horizontalOffsetEntry, verticalOffsetEntry, targetAreaEntry, targetValidityEntry;
@@ -53,7 +53,8 @@ public class Limelight extends Mechanism {
         horizontalOffset = horizontalOffsetEntry.getDouble(0.0);
         verticalOffset = verticalOffsetEntry.getDouble(0.0);
         targetArea = targetAreaEntry.getDouble(0.0);
-        targetValidity = targetValidityEntry.getDouble(0.0);    
+        targetValidity = targetValidityEntry.getDouble(0.0);   
+        targetDistance = (targetHeight - limelightHeight) / Math.tan((limelightAngle + verticalOffset) * Math.PI / 180); 
 
         if (driverStationDisplay) {
 
