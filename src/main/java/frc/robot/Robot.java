@@ -141,6 +141,12 @@ public class Robot extends TimedRobot {
 
         }
 
+        if (false) {
+
+            hopper.moveDown(0.4);
+
+        }
+
         if (thirdJoystick.getRawButton(6)) {
 
             hopper.moveUp(0.4);
