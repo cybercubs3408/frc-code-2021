@@ -75,10 +75,10 @@ public class Shooter extends Mechanism {
         double i = SmartDashboard.getNumber("I Gain", 0);
         double d = SmartDashboard.getNumber("D Gain", 0);
         double iz = SmartDashboard.getNumber("I Zone", 0);
-        double ff = SmartDashboard.getNumber("Feed Forward", 0);
+        double ff = SmartDashboard.getNumber("Feed Forward Gain", 0);
         double max = SmartDashboard.getNumber("Max Output", 1);
         double min = SmartDashboard.getNumber("Min Output", -1);
-        double target = SmartDashboard.getNumber("Max RPM", 0);
+        // double target = SmartDashboard.getNumber("Max RPM", 0);
     
         if (p != kP) {
 
@@ -123,14 +123,14 @@ public class Shooter extends Mechanism {
 
         }
 
-        if (target != kMaxRPM) {
+        // if (target != kMaxRPM) {
 
-            shooterPID.setReference(target, ControlType.kVelocity);
-            kMaxRPM = target;
+        //     shooterPID.setReference(target, ControlType.kVelocity);
+        //     kMaxRPM = target;
 
-        }
+        // }
     
-        // shooterPID.setReference(5000, ControlType.kVelocity);
+        shooterPID.setReference(5000, ControlType.kVelocity);
 
         if (smartDashboardDisplay) {
             
@@ -138,11 +138,11 @@ public class Shooter extends Mechanism {
             SmartDashboard.putNumber("I Gain", kI);
             SmartDashboard.putNumber("D Gain", kD);
             SmartDashboard.putNumber("I Zone", kIz);
-            SmartDashboard.putNumber("Feed Forward", kFF);
+            SmartDashboard.putNumber("Feed Forward Gain", kFF);
             SmartDashboard.putNumber("Max Output", kMaxOutput);
             SmartDashboard.putNumber("Min Output", kMinOutput);
             SmartDashboard.putNumber("Max RPM", kMaxRPM);
-            SmartDashboard.putNumber("RPM", leftEncoder.getVelocity());
+            SmartDashboard.putNumber("ProcessVariable", leftEncoder.getVelocity());
 
         }
 

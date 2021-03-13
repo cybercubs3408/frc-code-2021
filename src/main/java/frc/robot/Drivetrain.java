@@ -78,10 +78,10 @@ public class Drivetrain extends Mechanism {
      */
     public void drive(Joystick leftJoystick, Joystick rightJoystick) {
 
-        frontLeft.set(Math.pow(leftJoystick.getRawAxis(1), 3));
-        backLeft.set(Math.pow(leftJoystick.getRawAxis(1), 3));
-        frontRight.set(Math.pow(rightJoystick.getRawAxis(1), 3));
-        backRight.set(Math.pow(rightJoystick.getRawAxis(1), 3));
+        frontLeft.set(Math.pow(leftJoystick.getRawAxis(1), 1));
+        backLeft.set(Math.pow(leftJoystick.getRawAxis(1), 1));
+        frontRight.set(Math.pow(rightJoystick.getRawAxis(1), 1));
+        backRight.set(Math.pow(rightJoystick.getRawAxis(1),1));
 
     }
 

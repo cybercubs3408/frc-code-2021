@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 public class Robot extends TimedRobot {
 
+    private boolean armRaised = false;
     Compressor compressor = new Compressor();
 
     Joystick leftJoystick = new Joystick(0);
@@ -92,9 +93,15 @@ public class Robot extends TimedRobot {
 
         }
 
+        if (leftJoystick.getRawButton(4)) {
+
+            intake.intake(0.5);
+
+        }
+
         if (rightJoystick.getRawButton(1)) {
 
-            hopper.moveUp(0.3);
+            hopper.moveUp(0.4);
 
         }
 
@@ -105,65 +112,89 @@ public class Robot extends TimedRobot {
 
         }
 
-        if (thirdJoystick.getRawAxis(1) > 0.9) {
+        // if (thirdJoystick.getRawAxis(1) > 0.9) {
 
-            intake.raiseArm();
+        //     intake.raiseArm();
 
-        }
+        // }
 
-        if (thirdJoystick.getRawAxis(1) < -0.9) {
+        // if (thirdJoystick.getRawAxis(1) < -0.9) {
 
-            intake.dropArm();
+        //     intake.dropArm();
 
-        }
+        // }
 
-        if (thirdJoystick.getRawAxis(2) > 0.9) {
+        if (thirdJoystick.getRawAxis(5) > 0.9) {
 
             intake.outtake(0.5);
 
         }
 
-        if (thirdJoystick.getRawAxis(3) > 0.9) {
+        if (thirdJoystick.getRawAxis(5) < -0.9) {
 
             intake.intake(0.5);
         
         }
 
-        if (thirdJoystick.getRawButton(1)) {
+        // if (thirdJoystick.getRawButton(1)) {
 
-            hopper.moveUp(0.1);
+        //     hopper.moveUp(0.1);
 
-        }
+        // }
 
         if (thirdJoystick.getRawButton(5)) {
 
-            hopper.moveDown(0.1);
+            hopper.moveDown(0.5);
 
         }
 
-        if (false) {
+        // if (false) {
 
-            hopper.moveDown(0.4);
+        //     hopper.moveDown(0.4);
 
-        }
+        // }
 
         if (thirdJoystick.getRawButton(6)) {
 
-            hopper.moveUp(0.4);
+            hopper.moveUp(0.5);
 
         }
 
-        if (thirdJoystick.getRawButton(4)) {
+        if (thirdJoystick.getRawAxis(1) < 0) {
+
+            hopper.moveUp(0.5 * thirdJoystick.getRawAxis(1));
+
+        }
+
+        if (thirdJoystick.getRawAxis(1) > 0) {
+
+            hopper.moveDown(0.5 * thirdJoystick.getRawAxis(1));
+
+        }
+
+        // if (thirdJoystick.getRawButton(4)) {
             
-            hopper.moveUp(0.2);
+        //     hopper.moveUp(0.2);
 
-        }
+        // }
 
         if (leftJoystick.getRawButton(2)) {
             
             shooter.stop();
 
         }
+
+        if (thirdJoystick.getRawButtonPressed(1)) {
+
+            if (armRaised) {
+                intake.dropArm();
+            } else {
+                intake.raiseArm();
+            }
+            armRaised = !armRaised;
+
+        }
+
 
     }
 
