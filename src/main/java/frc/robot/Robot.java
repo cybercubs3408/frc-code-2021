@@ -7,9 +7,8 @@
     - The stopMechanisms method might not work because of the Mechanism superclass.
     - At the end of the teleopPeriodic method, the shooter object might need to be included in the parameters of the stopMechanisms method.
     - I really don't like how the shooter object's initialization parameters are 44 and 55. Someone needs to fix that with the REV Hardware Client.
-    - To Do: Clean up code.
     - To Do: Make the shoot method toggleable.
-    - Name buttons appropriately.
+    - To Do: Name buttons appropriately.
 
 */
 
@@ -23,7 +22,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 public class Robot extends TimedRobot {
 
-    private boolean armRaised = false;
+    boolean armRaised = false;
+
     Compressor compressor = new Compressor();
 
     Joystick leftJoystick = new Joystick(0);
@@ -78,6 +78,7 @@ public class Robot extends TimedRobot {
 
         //if (thirdJoystick.getRawButton(1)) {
 
+            // Test if neccessary
             intake.stop();
             hopper.stop();
 
@@ -89,10 +90,16 @@ public class Robot extends TimedRobot {
 
         }
 
-        // ??????????????????????????????
+        // Test when testing prepareToShoot
         if (leftJoystick.getRawButtonPressed(1)) {
 
             drivetrain.prepareToShoot(false, true, limelight);
+
+        }
+
+        if (leftJoystick.getRawButton(2)) {
+            
+            shooter.stop();
 
         }
 
@@ -115,21 +122,21 @@ public class Robot extends TimedRobot {
 
         }
 
-        // if (thirdJoystick.getRawAxis(1) > 0.9) {
+        if (thirdJoystick.getRawButtonPressed(1)) {
 
-        //     intake.raiseArm();
+            if (armRaised) {
+                
+                intake.dropArm();
 
-        // }
+            } 
+            
+            else {
+                
+                intake.raiseArm();
 
-        // if (thirdJoystick.getRawAxis(1) < -0.9) {
+            }
 
-        //     intake.dropArm();
-
-        // }
-
-        if (thirdJoystick.getRawAxis(5) > 0.9) {
-
-            intake.outtake(0.5);
+            armRaised = !armRaised;
 
         }
 
@@ -139,30 +146,12 @@ public class Robot extends TimedRobot {
         
         }
 
-        // if (thirdJoystick.getRawButton(1)) {
+        if (thirdJoystick.getRawAxis(5) > 0.9) {
 
-        //     hopper.moveUp(0.1);
-
-        // }
-
-        if (thirdJoystick.getRawButton(5)) {
-
-            hopper.moveDown(0.5);
+            intake.outtake(0.5);
 
         }
-
-        // if (false) {
-
-        //     hopper.moveDown(0.4);
-
-        // }
-
-        if (thirdJoystick.getRawButton(6)) {
-
-            hopper.moveUp(0.5);
-
-        }
-
+        
         if (thirdJoystick.getRawAxis(1) < 0) {
 
             hopper.moveUp(0.5 * thirdJoystick.getRawAxis(1));
@@ -175,29 +164,17 @@ public class Robot extends TimedRobot {
 
         }
 
-        // if (thirdJoystick.getRawButton(4)) {
-            
-        //     hopper.moveUp(0.2);
+        if (thirdJoystick.getRawButton(6)) {
 
-        // }
-
-        if (leftJoystick.getRawButton(2)) {
-            
-            shooter.stop();
+            hopper.moveUp(0.5);
 
         }
 
-        if (thirdJoystick.getRawButtonPressed(1)) {
+        if (thirdJoystick.getRawButton(5)) {
 
-            if (armRaised) {
-                intake.dropArm();
-            } else {
-                intake.raiseArm();
-            }
-            armRaised = !armRaised;
+            hopper.moveDown(0.5);
 
         }
-
 
     }
 
