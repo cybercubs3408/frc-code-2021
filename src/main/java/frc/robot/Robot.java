@@ -7,7 +7,6 @@
     - The stopMechanisms method might not work because of the Mechanism superclass.
     - At the end of the teleopPeriodic method, the shooter object might need to be included in the parameters of the stopMechanisms method.
     - I really don't like how the shooter object's initialization parameters are 44 and 55. Someone needs to fix that with the REV Hardware Client.
-    - To Do: Make the shoot method toggleable.
     - To Do: Name buttons appropriately.
 
 */
@@ -23,6 +22,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 public class Robot extends TimedRobot {
 
     boolean armRaised = false;
+    boolean shooting = false;
 
     Compressor compressor = new Compressor();
 
@@ -76,6 +76,12 @@ public class Robot extends TimedRobot {
 
         drivetrain.drive(rightJoystick, leftJoystick);
 
+        if (shooting) {
+            
+            shooter.shoot(true);
+
+        }
+
         //if (thirdJoystick.getRawButton(1)) {
 
             // Test if neccessary
@@ -97,6 +103,7 @@ public class Robot extends TimedRobot {
 
         }
 
+        // May be obsolete.
         if (leftJoystick.getRawButton(2)) {
             
             shooter.stop();
@@ -118,7 +125,13 @@ public class Robot extends TimedRobot {
 
         if (rightJoystick.getRawButton(2)) {
 
-            shooter.shoot(true);
+            if (shooting) {
+
+                shooter.stop();
+
+            }
+
+            shooting = !shooting;
 
         }
 
