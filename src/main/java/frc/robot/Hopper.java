@@ -1,6 +1,7 @@
 /*
 
     Notes:
+    - To Do: Fix issue of hopper not activating.
 
 */
 

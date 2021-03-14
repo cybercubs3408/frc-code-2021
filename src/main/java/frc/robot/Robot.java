@@ -7,6 +7,9 @@
     - The stopMechanisms method might not work because of the Mechanism superclass.
     - At the end of the teleopPeriodic method, the shooter object might need to be included in the parameters of the stopMechanisms method.
     - I really don't like how the shooter object's initialization parameters are 44 and 55. Someone needs to fix that with the REV Hardware Client.
+    - To Do: Clean up code.
+    - To Do: Make the shoot method toggleable.
+    - Name buttons appropriately.
 
 */
 

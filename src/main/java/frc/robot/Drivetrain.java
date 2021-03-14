@@ -5,6 +5,7 @@
     - Most of the autonomous code is not useful right now, I have left it in for now, 
       but it will be overwritten with new code for Pathweaver.
     - To Do: Add PID Control to the prepareToShoot method.
+    - To Do: Investigate and solve issue of prepareToShoot method not activating.
 
 */
 

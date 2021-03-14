@@ -1,8 +1,7 @@
 /*
 
     Notes:
-    - To Do: Add method to calculate RPM based on limelight angle.
-
+    - To Do: Re-calibrate Limelight
 */
 
 package frc.robot;

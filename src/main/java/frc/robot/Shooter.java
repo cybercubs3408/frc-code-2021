@@ -1,9 +1,8 @@
 /*
 
     Notes:
-    - To Do: Test whether the shooting requires only a single press or a constant press.
     - To Do: Allow target RPM to be modified from the Smart Dashboard.--> potentially done
-    - To Do: Calculate target RPM from Limelight.
+    - To Do: Research SmartDasboard
 
 */
 
