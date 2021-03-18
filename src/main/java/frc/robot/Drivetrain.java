@@ -195,6 +195,8 @@ public class Drivetrain extends Mechanism {
         limelight.updateLimelightVariables(driverStationDisplay, smartDashboardDisplay);
     
         if (Math.abs(limelight.horizontalOffset) > 0.1) {
+
+            limelight.updateLimelightVariables(driverStationDisplay, smartDashboardDisplay);
             
             if (limelight.horizontalOffset > 0) {
 
