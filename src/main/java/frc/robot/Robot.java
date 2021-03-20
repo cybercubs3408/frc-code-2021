@@ -106,6 +106,7 @@ public class Robot extends TimedRobot {
         // May be obsolete.
         if (leftJoystick.getRawButton(2)) {
             
+            shooting = false;
             shooter.stop();
 
         }
