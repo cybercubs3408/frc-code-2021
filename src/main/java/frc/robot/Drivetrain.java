@@ -77,12 +77,21 @@ public class Drivetrain extends Mechanism {
      * @param leftJoystick The joystick controlling the left side of the drivetrain.
      * @param rightJoystick The joystick controlling the right side of the drivetrain.
      */
-    public void drive(Joystick leftJoystick, Joystick rightJoystick) {
+    public void drive(Joystick leftJoystick, Joystick rightJoystick, boolean locking) {
 
-        frontLeft.set(Math.pow(leftJoystick.getRawAxis(1), 1));
-        backLeft.set(Math.pow(leftJoystick.getRawAxis(1), 1));
-        frontRight.set(Math.pow(rightJoystick.getRawAxis(1), 1));
-        backRight.set(Math.pow(rightJoystick.getRawAxis(1),1));
+        double leftPower = leftJoystick.getRawAxis(1);
+        double rightPower = rightJoystick.getRawAxis(1);
+
+        if (locking && Math.abs(leftPower - rightPower) < 0.2) {
+            double avgPower = (leftPower + rightPower) / 2;
+            leftPower = avgPower;
+            rightPower = avgPower;
+        }
+
+        frontLeft.set(Math.pow(leftPower, 1));
+        backLeft.set(Math.pow(leftPower, 1));
+        frontRight.set(Math.pow(rightPower, 1));
+        backRight.set(Math.pow(rightPower,1));
 
     }
 

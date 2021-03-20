@@ -23,6 +23,7 @@ public class Robot extends TimedRobot {
 
     boolean armRaised = false;
     boolean shooting = false;
+    boolean drivingLocked = true;
 
     Compressor compressor = new Compressor();
 
@@ -74,7 +75,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
 
-        drivetrain.drive(rightJoystick, leftJoystick);
+        drivetrain.drive(rightJoystick, leftJoystick, drivingLocked);
 
         if (shooting) {
             
@@ -115,6 +116,11 @@ public class Robot extends TimedRobot {
 
             intake.intake(0.5);
 
+        }
+
+        if (leftJoystick.getRawButton(5)) {
+            
+            drivingLocked = !drivingLocked;
         }
 
         if (rightJoystick.getRawButton(1)) {
