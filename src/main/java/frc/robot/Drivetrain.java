@@ -76,6 +76,7 @@ public class Drivetrain extends Mechanism {
      * Drives the drivetrain with teleoperated controls.
      * @param leftJoystick The joystick controlling the left side of the drivetrain.
      * @param rightJoystick The joystick controlling the right side of the drivetrain.
+     * @param locking Set to true if drivetrain should lock turning when the joysticks are close together.
      */
     public void drive(Joystick leftJoystick, Joystick rightJoystick, boolean locking) {
 
