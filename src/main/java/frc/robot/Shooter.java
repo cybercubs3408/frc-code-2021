@@ -141,7 +141,7 @@ public class Shooter extends Mechanism {
             SmartDashboard.putNumber("Max Output", kMaxOutput);
             SmartDashboard.putNumber("Min Output", kMinOutput);
             SmartDashboard.putNumber("SetPoint", kMaxRPM);
-            SmartDashboard.putNumber("RPM", leftEncoder.getVelocity());
+            SmartDashboard.putNumber("ProcessVariable", leftEncoder.getVelocity());
 
         }
 
@@ -154,8 +154,6 @@ public class Shooter extends Mechanism {
     public void shoot(boolean smartDashboardDisplay) {
 
         updatePIDCoefficients(smartDashboardDisplay);
-
-        SmartDashboard.putNumber("RPM", leftEncoder.getVelocity());
 
     }
 
