@@ -118,11 +118,6 @@ public class Robot extends TimedRobot {
 
         }
 
-        if (leftJoystick.getRawButton(5)) {
-            
-            drivingLocked = !drivingLocked;
-        }
-
         if (rightJoystick.getRawButton(1)) {
 
             hopper.moveUp(0.4);
@@ -141,6 +136,13 @@ public class Robot extends TimedRobot {
             shooting = !shooting;
 
         }
+
+        if (rightJoystick.getRawButton(4)) {
+            
+            drivingLocked = !drivingLocked;
+
+        }
+
 
         if (thirdJoystick.getRawButtonPressed(1)) {
 
