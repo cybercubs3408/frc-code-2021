@@ -88,10 +88,10 @@ public class Drivetrain extends Mechanism {
             rightPower = avgPower;
         }
 
-        frontLeft.set(Math.pow(leftPower, 1));
-        backLeft.set(Math.pow(leftPower, 1));
-        frontRight.set(Math.pow(rightPower, 1));
-        backRight.set(Math.pow(rightPower,1));
+        frontLeft.set(0.75 * leftPower);
+        backLeft.set(0.75 * leftPower);
+        frontRight.set(0.75 * rightPower);
+        backRight.set(0.75 * rightPower);
 
     }
 
