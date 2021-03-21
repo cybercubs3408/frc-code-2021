@@ -1,7 +1,6 @@
 /*
 
     Notes:
-    - To Do: Allow target RPM to be modified from the Smart Dashboard.--> potentially done
     - To Do: Research SmartDasboard
 
 */
