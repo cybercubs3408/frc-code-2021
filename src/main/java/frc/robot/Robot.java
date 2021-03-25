@@ -17,6 +17,10 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 
 public class Robot extends TimedRobot {
@@ -36,6 +40,9 @@ public class Robot extends TimedRobot {
     Drivetrain drivetrain = new Drivetrain(6, 7, 8, 9);
     Shooter shooter = new Shooter(44, 55, 6e-5, 0, 0, 0, 0.000015, 1, -1, 6000);
     Limelight limelight = new Limelight(33.5, 97.0, 3.0);
+
+    TalonSRX talon2 = new TalonSRX(2); /* Talon SRX on CAN bus with device ID 2*/
+    PigeonIMU pigeon = new PigeonIMU(talon2); /* Pigeon is plugged into Talon 2*/
 
     @Override
     public void robotInit() {
@@ -76,6 +83,12 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
 
         drivetrain.drive(rightJoystick, leftJoystick, drivingLocked);
+
+        double[] ypr = new double[3];
+        pigeon.getYawPitchRoll(ypr);
+        SmartDashboard.putNumber("Pigeon Yaw", ypr[0]);
+
+        // System.out.println("Pigeon Yaw is: " + ypr[0]);
 
         if (shooting) {
             
@@ -197,6 +210,14 @@ public class Robot extends TimedRobot {
             hopper.moveDown(0.5);
 
         }
+
+        // if (leftJoystick.getRawButton(7)) {
+
+        //     double [] ypr = new double[3];
+        //     pigeon.GetYawPitchRoll(ypr);
+        //     System.out.println("Yaw:" + ypr[0]);    
+
+        // }
 
     }
 
