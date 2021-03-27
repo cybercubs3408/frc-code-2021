@@ -83,7 +83,7 @@ public class Drivetrain extends Mechanism {
         double leftPower = leftJoystick.getRawAxis(1);
         double rightPower = rightJoystick.getRawAxis(1);
 
-        if (locking && Math.abs(leftPower - rightPower) < 0.2) {
+        if (locking && Math.abs(leftPower - rightPower) < 0.1) {
             double avgPower = (leftPower + rightPower) / 2;
             leftPower = avgPower;
             rightPower = avgPower;
