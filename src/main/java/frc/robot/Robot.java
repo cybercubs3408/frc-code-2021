@@ -88,6 +88,9 @@ public class Robot extends TimedRobot {
         pigeon.getYawPitchRoll(ypr);
         SmartDashboard.putNumber("Pigeon Yaw", ypr[0]);
 
+	double heading = pigeon.getAbsoluteCompassHeading();
+	SmartDashboard.putNumber("Absolute Heading", heading);
+
         // System.out.println("Pigeon Yaw is: " + ypr[0]);
 
         if (shooting) {
