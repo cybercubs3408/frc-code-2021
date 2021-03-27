@@ -158,13 +158,6 @@ public class Shooter extends Mechanism {
 
         }
 
-        shooterPID.setFF(ff); 
-        shooterPID.setP(p);
-        shooterPID.setI(i);
-        shooterPID.setD(d);
-        shooterPID.setReference(rpm, ControlType.kVelocity);
-
-
     }
 
     /**
