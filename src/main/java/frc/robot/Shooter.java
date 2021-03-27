@@ -146,6 +146,27 @@ public class Shooter extends Mechanism {
 
     }
 
+    public void setPIDCoefficients(boolean smartDashboardDisplay, double ff, double p, double i, double d, double rpm) {
+
+        if (smartDashboardDisplay) {
+            
+            SmartDashboard.putNumber("P Gain", p);
+            SmartDashboard.putNumber("I Gain", i);
+            SmartDashboard.putNumber("D Gain", d);
+            SmartDashboard.putNumber("Feed Forward", ff);
+            SmartDashboard.putNumber("SetPoint", rpm);
+
+        }
+
+        shooterPID.setFF(ff); 
+        shooterPID.setP(p);
+        shooterPID.setI(i);
+        shooterPID.setD(d);
+        shooterPID.setReference(rpm, ControlType.kVelocity);
+
+
+    }
+
     /**
      * Spins the shooter using PID control.
      * @param smartDashboardDisplay A boolean representing whether or not to display certain PID values on Driver Station.

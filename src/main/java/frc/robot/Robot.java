@@ -134,6 +134,24 @@ public class Robot extends TimedRobot {
 
         }
 
+        if (leftJoystick.getRawButtonPressed(11)) {
+
+            shooter.setPIDCoefficients(true, 0.00012, 0.0006, 0.0, 0.005, 6000);
+
+        }
+
+        if (leftJoystick.getRawButtonPressed(12)) {
+
+            shooter.setPIDCoefficients(true, 0.00012, 0.0007, 0.0, 0.005, 5000);
+
+        }
+
+        if (leftJoystick.getRawButtonPressed(13)) {
+
+            shooter.setPIDCoefficients(true, 0.00012, 0.0006, 0.0, 0.005, 5300);
+
+        }
+
         if (rightJoystick.getRawButton(1)) {
 
             hopper.moveUp(0.4);
