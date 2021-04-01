@@ -41,8 +41,8 @@ public class Robot extends TimedRobot {
     Shooter shooter = new Shooter(44, 55, 6e-5, 0, 0, 0, 0.000015, 1, -1, 6000);
     Limelight limelight = new Limelight(33.5, 97.0, 3.0);
 
-    TalonSRX talon2 = new TalonSRX(7); /* Talon SRX on CAN bus with device ID 2*/
-    PigeonIMU pigeon = new PigeonIMU(talon2); /* Pigeon is plugged into Talon 2*/
+    TalonSRX talon = new TalonSRX(4); /* Talon SRX on CAN bus with device ID 2*/
+    PigeonIMU pigeon = new PigeonIMU(talon); /* Pigeon is plugged into Talon 2*/
 
     @Override
     public void robotInit() {
