@@ -161,13 +161,7 @@ public class Robot extends TimedRobot {
 
         if (rightJoystick.getRawButton(2)) {
 
-            if (shooting) {
-
-                shooter.stop();
-
-            }
-
-            shooting = !shooting;
+            shooting = true;
 
         }
 
