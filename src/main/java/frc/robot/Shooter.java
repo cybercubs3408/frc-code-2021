@@ -167,6 +167,7 @@ public class Shooter extends Mechanism {
     public void shoot(boolean smartDashboardDisplay) {
 
         updatePIDCoefficients(smartDashboardDisplay);
+        SmartDashboard.putNumber("RPM", leftEncoder.getVelocity());
 
     }
 
