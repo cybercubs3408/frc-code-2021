@@ -41,8 +41,8 @@ public class Robot extends TimedRobot {
     Shooter shooter = new Shooter(44, 55, 6e-5, 0, 0, 0, 0.000015, 1, -1, 6000);
     Limelight limelight = new Limelight(33.5, 97.0, 3.0);
 
-    TalonSRX talon = new TalonSRX(4); /* Talon SRX on CAN bus with device ID 2*/
-    PigeonIMU pigeon = new PigeonIMU(talon); /* Pigeon is plugged into Talon 2*/
+    // TalonSRX talon = new TalonSRX(4); /* Talon SRX on CAN bus with device ID 2*/
+    // PigeonIMU pigeon = new PigeonIMU(talon); /* Pigeon is plugged into Talon 2*/
 
     @Override
     public void robotInit() {
@@ -84,12 +84,12 @@ public class Robot extends TimedRobot {
 
         drivetrain.drive(rightJoystick, leftJoystick, drivingLocked);
 
-        double[] ypr = new double[3];
-        pigeon.getYawPitchRoll(ypr);
-        SmartDashboard.putNumber("Pigeon Yaw", ypr[0]);
+        // double[] ypr = new double[3];
+        // pigeon.getYawPitchRoll(ypr);
+        // SmartDashboard.putNumber("Pigeon Yaw", ypr[0]);
 
-        double heading = pigeon.getFusedHeading();
-        SmartDashboard.putNumber("Fused Heading", heading);
+        // double heading = pigeon.getFusedHeading();
+        // SmartDashboard.putNumber("Fused Heading", heading);
 
         // System.out.println("Pigeon Yaw is: " + ypr[0]);
 
@@ -172,7 +172,7 @@ public class Robot extends TimedRobot {
         }
 
 
-        if (thirdJoystick.getRawButtonPressed(1)) {
+        if (thirdJoystick.getRawButtonPressed(2)) {
 
             if (armRaised) {
                 
@@ -190,13 +190,13 @@ public class Robot extends TimedRobot {
 
         }
 
-        if (thirdJoystick.getRawAxis(5) < -0.9) {
+        if (thirdJoystick.getRawAxis(3) < -0.9) {
 
             intake.intake(0.5);
         
         }
 
-        if (thirdJoystick.getRawAxis(5) > 0.9) {
+        if (thirdJoystick.getRawAxis(3) > 0.9) {
 
             intake.outtake(0.5);
 
@@ -204,13 +204,13 @@ public class Robot extends TimedRobot {
         
         if (thirdJoystick.getRawAxis(1) < 0) {
 
-            hopper.moveUp(0.5 * thirdJoystick.getRawAxis(1));
+            hopper.moveUp(0.4 * thirdJoystick.getRawAxis(1));
 
         }
 
         if (thirdJoystick.getRawAxis(1) > 0) {
 
-            hopper.moveDown(0.5 * thirdJoystick.getRawAxis(1));
+            hopper.moveDown(0.4 * thirdJoystick.getRawAxis(1));
 
         }
 
