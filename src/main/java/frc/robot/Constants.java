@@ -21,4 +21,10 @@ public final class Constants {
         public static final int backRightMotorID = 9;
     }
 
+    public static final class IOConstants {
+        public static final int leftJoystickID = 0;
+        public static final int rightJoystickID = 1;
+        public static final int xBoxControllerID = 2;
+    }
+
 }
