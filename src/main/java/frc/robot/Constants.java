@@ -19,6 +19,18 @@ public final class Constants {
         public static final int backLeftMotorID = 7;
         public static final int frontRightMotorID = 8;
         public static final int backRightMotorID = 9;
+
+        public static final int[] leftEncoderIDs = new int[] {6, 7};
+        public static final int[] rightEncoderIDs = new int[] {8, 9};
+
+        public static final boolean leftEncoderReversed = false;
+        public static final boolean rightEncoderReversed = true;
+
+        public static final int encoderCPR = 1024;
+        public static final double wheelDiameterInches = 6;
+        public static final double encoderDistancePerPulse =
+            // Assumes the encoders are directly mounted on the wheel shafts
+            (wheelDiameterInches * Math.PI) / (double) encoderCPR;
     }
 
     public static final class IOConstants {
