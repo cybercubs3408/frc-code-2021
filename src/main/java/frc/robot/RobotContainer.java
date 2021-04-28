@@ -42,7 +42,7 @@ public class RobotContainer {
           () -> leftJoystickID.getY(GenericHID.Hand.kLeft),
           () -> rightJoystickID.getY(GenericHD.Hand.kRight),
           false),
-        robotDrive);)
+        robotDrive));
   }
 
   /**
