@@ -23,7 +23,7 @@ public class TankDrive extends CommandBase {
    * @param left The control input for the left motors.
    * @param right The control input for the right motors.
    */
-  public DefaultDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right) {
+  public TankDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right) {
     drive = subsystem;
     leftSpeed = forward;
     rightSpeed = right;
