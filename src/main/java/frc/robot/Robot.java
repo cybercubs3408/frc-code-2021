@@ -1,262 +1,95 @@
-/*
-
-    Notes:
-    - The autonomous code might not work.
-    - The teleopPeriodic method has two calls to the prepareToShoot method, and both calls require the same button press.
-        - It is possible that only one of these is necessary.
-    - The stopMechanisms method might not work because of the Mechanism superclass.
-    - At the end of the teleopPeriodic method, the shooter object might need to be included in the parameters of the stopMechanisms method.
-    - I really don't like how the shooter object's initialization parameters are 44 and 55. Someone needs to fix that with the REV Hardware Client.
-    - To Do: Name buttons appropriately.
-
-*/
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-
+/**
+ * The VM is configured to automatically run this class, and to call the functions corresponding to
+ * each mode, as described in the TimedRobot documentation. If you change the name of this class or
+ * the package after creating this project, you must also update the build.gradle file in the
+ * project.
+ */
 public class Robot extends TimedRobot {
+  private Command m_autonomousCommand;
 
-    boolean armRaised = false;
-    boolean shooting = false;
-    boolean drivingLocked = true;
+  private RobotContainer m_robotContainer;
 
-    Compressor compressor = new Compressor();
+  /**
+   * This function is run when the robot is first started up and should be used for any
+   * initialization code.
+   */
+  @Override
+  public void robotInit() {
+    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // autonomous chooser on the dashboard.
+    m_robotContainer = new RobotContainer();
+  }
 
-    Joystick leftJoystick = new Joystick(0);
-    Joystick rightJoystick = new Joystick(1);
-    Joystick thirdJoystick = new Joystick(2);
+  /**
+   * This function is called every robot packet, no matter the mode. Use this for items like
+   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+   *
+   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
+   * SmartDashboard integrated updating.
+   */
+  @Override
+  public void robotPeriodic() {
+    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+    // commands, running already-scheduled commands, removing finished or interrupted commands,
+    // and running subsystem periodic() methods.  This must be called from the robot's periodic
+    // block in order for anything in the Command-based framework to work.
+    CommandScheduler.getInstance().run();
+  }
 
-    Intake intake = new Intake(0, 2);
-    Hopper hopper = new Hopper(1, 2);
-    Drivetrain drivetrain = new Drivetrain(6, 7, 8, 9);
-    Shooter shooter = new Shooter(44, 55, 6e-5, 0, 0, 0, 0.000015, 1, -1, 6000);
-    Limelight limelight = new Limelight(33.5, 97.0, 3.0);
+  /** This function is called once each time the robot enters Disabled mode. */
+  @Override
+  public void disabledInit() {}
 
-    // TalonSRX talon = new TalonSRX(4); /* Talon SRX on CAN bus with device ID 2*/
-    // PigeonIMU pigeon = new PigeonIMU(talon); /* Pigeon is plugged into Talon 2*/
+  @Override
+  public void disabledPeriodic() {}
 
-    @Override
-    public void robotInit() {
+  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+  @Override
+  public void autonomousInit() {
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-        compressor.clearAllPCMStickyFaults();
-        compressor.start();
-
-        intake.setInversionStatus(true);
-        hopper.setInversionStatus(false, true);
-        drivetrain.setInversionStatus(false, false, true, true);
-
+    // schedule the autonomous command (example)
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
     }
+  }
 
-    @Override
-    public void autonomousInit() {
+  /** This function is called periodically during autonomous. */
+  @Override
+  public void autonomousPeriodic() {}
 
-
+  @Override
+  public void teleopInit() {
+    // This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
     }
-
-    @Override
-    public void autonomousPeriodic() {
-
-
-    }
-
-    @Override
-    public void teleopInit() {
-
-        drivetrain.stop();
-        drivetrain.resetEncoders();
-
-        CameraServer.getInstance().startAutomaticCapture(0);
-        CameraServer.getInstance().startAutomaticCapture(1);
-
-    }
-
-    @Override
-    public void teleopPeriodic() {
-
-        drivetrain.drive(rightJoystick, leftJoystick, drivingLocked);
-
-        // double[] ypr = new double[3];
-        // pigeon.getYawPitchRoll(ypr);
-        // SmartDashboard.putNumber("Pigeon Yaw", ypr[0]);
-
-        // double heading = pigeon.getFusedHeading();
-        // SmartDashboard.putNumber("Fused Heading", heading);
-
-        // System.out.println("Pigeon Yaw is: " + ypr[0]);
-
-        if (shooting) {
-            
-            shooter.shoot(true);
-
-        }
-
-        //if (thirdJoystick.getRawButton(1)) {
-
-            // Test if neccessary
-            intake.stop();
-            hopper.stop();
-
-        //}
-
-        if (leftJoystick.getRawButton(1)) {
-
-            drivetrain.prepareToShoot(false, true, limelight);
-
-        }
-
-        // Test when testing prepareToShoot
-        if (leftJoystick.getRawButtonPressed(1)) {
-
-            drivetrain.prepareToShoot(false, true, limelight);
-
-        }
-
-        // May be obsolete.
-        if (leftJoystick.getRawButton(2)) {
-            
-            shooting = false;
-            shooter.stop();
-
-        }
-
-        if (leftJoystick.getRawButton(4)) {
-
-            intake.intake(0.5);
-
-        }
-
-        if (leftJoystick.getRawButton(11)) {
-
-            shooter.setPIDCoefficients(true, 0.00012, 0.0006, 0.0, 0.005, 6000);
-
-        }
-
-        if (leftJoystick.getRawButton(12)) {
-
-            shooter.setPIDCoefficients(true, 0.00012, 0.0007, 0.0, 0.005, 5000);
-
-        }
-
-        if (leftJoystick.getRawButton(13)) {
-
-            shooter.setPIDCoefficients(true, 0.00012, 0.0006, 0.0, 0.005, 5300);
-
-        }
-
-        if (rightJoystick.getRawButton(1)) {
-
-            hopper.moveUp(0.4);
-
-        }
-
-
-        if (rightJoystick.getRawButton(2)) {
-
-            shooting = true;
-
-        }
-
-        if (rightJoystick.getRawButton(4)) {
-            
-            drivingLocked = !drivingLocked;
-
-        }
-
-
-        if (thirdJoystick.getRawButtonPressed(2)) {
-
-            if (armRaised) {
-                
-                intake.dropArm();
-
-            } 
-            
-            else {
-                
-                intake.raiseArm();
-
-            }
-
-            armRaised = !armRaised;
-
-        }
-
-        if (thirdJoystick.getRawAxis(3) < -0.9) {
-
-            intake.intake(0.5);
-        
-        }
-
-        if (thirdJoystick.getRawAxis(3) > 0.9) {
-
-            intake.outtake(0.5);
-
-        }
-        
-        if (thirdJoystick.getRawAxis(1) < 0) {
-
-            hopper.moveUp(0.4 * thirdJoystick.getRawAxis(1));
-
-        }
-
-        if (thirdJoystick.getRawAxis(1) > 0) {
-
-            hopper.moveDown(0.4 * thirdJoystick.getRawAxis(1));
-
-        }
-
-        if (thirdJoystick.getRawButton(6)) {
-
-            hopper.moveUp(0.5);
-
-        }
-
-        if (thirdJoystick.getRawButton(5)) {
-
-            hopper.moveDown(0.5);
-
-        }
-
-        // if (leftJoystick.getRawButton(7)) {
-
-        //     double [] ypr = new double[3];
-        //     pigeon.GetYawPitchRoll(ypr);
-        //     System.out.println("Yaw:" + ypr[0]);    
-
-        // }
-
-    }
-
-    @Override
-    public void testPeriodic() {
-
-    }
-
-    @Override
-    public void disabledInit() {
-
-        // stopMechanisms(intake, hopper, drivetrain, shooter);
-
-    }
-
-    // Fix later.
-    // public void stopMechanisms(Mechanism... args) {
-
-    //     for (Mechanism mechanism : args) {
-
-    //         mechanism.stop();
-
-    //     }
-
-    // }
-
+  }
+
+  /** This function is called periodically during operator control. */
+  @Override
+  public void teleopPeriodic() {}
+
+  @Override
+  public void testInit() {
+    // Cancels all running commands at the start of test mode.
+    CommandScheduler.getInstance().cancelAll();
+  }
+
+  /** This function is called periodically during test mode. */
+  @Override
+  public void testPeriodic() {}
 }
