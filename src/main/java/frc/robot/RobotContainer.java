@@ -37,10 +37,12 @@ public class RobotContainer {
 
     // Configure the default commands
     robotDrive.setDefaultCommand(
-      new TankDrive(
-        drive,
-        () -> leftJoystickID.getY(GenericHID.Hand.kLeft),
-        () -> rightJoystickID.getY(GenericHID.Hand.kRight)));
+      new RunCommand(
+        () -> robotDrive.tankDrive(
+          () -> leftJoystickID.getY(GenericHID.Hand.kLeft),
+          () -> rightJoystickID.getY(GenericHD.Hand.kRight),
+          false),
+        robotDrive);)
   }
 
   /**
