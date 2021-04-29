@@ -10,10 +10,12 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.examples.ramsetecommand.Constants.DriveConstants;
 
-public class DriveSubsystem extends SubsystemBase {
+public class DriveSubsystem extends Mechanism {
   // The motors on the left side of the drive.
   private final SpeedControllerGroup m_leftMotors =
       new SpeedControllerGroup(new PWMVictorSPX(DriveConstants.kLeftMotor1Port),
@@ -38,7 +40,11 @@ public class DriveSubsystem extends SubsystemBase {
                   DriveConstants.kRightEncoderReversed);
 
   // The gyro sensor
-  private final Gyro m_gyro = new ADXRS450_Gyro();
+//   private final Gyro m_gyro = new ADXRS450_Gyro();
+//   private final Pigeon m_gyro = new PigeonIMU(new TalonSRX(4));
+//   private Pigeon m_gyro = new PigeonIMU(new TalonSRX(4));
+    TalonSRX talon = new TalonSRX(4); /* Talon SRX on CAN bus with device ID 2*/
+    PigeonIMU m_gyro = new PigeonIMU(talon); /* Pigeon is plugged into Talon 2*/
 
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
@@ -169,7 +175,8 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the robot's heading in degrees, from -180 to 180
    */
   public double getHeading() {
-    return m_gyro.getRotation2d().getDegrees();
+    // return m_gyro.getRotation2d().getDegrees();
+    return m_gyro.getCompassHeading();
   }
 
   /**
