@@ -6,3 +6,5 @@ Class-based (not normie one file)
 
 Justin = **cringe normie**
 I second that.
+
+Sameer = **EECS Nerd**
