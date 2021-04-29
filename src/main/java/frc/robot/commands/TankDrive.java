@@ -25,7 +25,7 @@ public class TankDrive extends CommandBase {
    */
   public TankDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right) {
     drive = subsystem;
-    leftSpeed = forward;
+    leftSpeed = left;
     rightSpeed = right;
     addRequirements(drive);
   }

@@ -33,7 +33,7 @@ public class DriveSubsystem extends SubsystemBase {
       new Encoder(
           DriveConstants.leftEncoderIDs[0],
           DriveConstants.leftEncoderIDs[1],
-          DriveConstants.kLeftEncoderReversed);
+          DriveConstants.leftEncoderReversed);
 
   // The right-side drive encoder
   private final Encoder rightEncoder =
@@ -56,7 +56,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @param rot the commanded rotation
    */
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    drive.tankDrive(leftSpeed, righSpeed, true);
+    drive.tankDrive(leftSpeed, rightSpeed, true);
   }
 
   /** Resets the drive encoders to currently read a position of 0. */
