@@ -5,3 +5,13 @@ Code for the 2021 FRC at Home challenges
 Class-based (not normie one file)
 
 Justin = **cringe normie**
+
+I second that.
+
+Sameer = **EECS Nerd**
+
+yooo
+
+ayyy
+
+Creativity is hard
